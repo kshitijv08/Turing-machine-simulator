@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Turing Machine Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="tm-header">
+    <div class="tm-title">TURING MACHINE</div>
+    <div class="tm-subtitle">Universal Simulator</div>
+  </div>
+
+  <!-- TOP ROW: presets/input  |  transition table -->
+  <div class="panel-row">
+
+    <!-- LEFT PANEL -->
+    <div class="panel">
+
+      <!-- Presets -->
+      <div class="panel-label">Presets</div>
+      <button class="preset-btn active" onclick="loadPreset(0)">aⁿbⁿcⁿ acceptor   <span class="preset-tag">CSL</span></button>
+      <button class="preset-btn"        onclick="loadPreset(1)">palindrome {a,b}   <span class="preset-tag">easy</span></button>
+      <button class="preset-btn"        onclick="loadPreset(2)">unary adder        <span class="preset-tag">arith</span></button>
+      <button class="preset-btn"        onclick="loadPreset(3)">binary flip        <span class="preset-tag">simple</span></button>
+      <button class="preset-btn"        onclick="loadPreset(4)">ww acceptor        <span class="preset-tag">hard</span></button>
+
+      <div class="divider"></div>
+
+      <!-- Input -->
+      <div class="panel-label">Input</div>
+      <div class="input-row">
+        <label>string</label>
+        <input type="text" id="inputStr" value="aabbcc"/>
+      </div>
+      <div class="input-row">
+        <label>blank</label>
+        <input type="text" id="blankSym" value="_" maxlength="1" style="width:42px;"/>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Manual TM -->
+      <div class="panel-label">
+        Manual TM
+        <button class="toggle-btn" id="manualToggle" onclick="toggleManual()">+ expand</button>
+      </div>
+
+      <div id="manualSection" style="display:none;">
+        <div class="input-row">
+          <label>start q</label>
+          <input type="number" id="mStart"  value="0" min="0" style="width:55px;"/>
+        </div>
+        <div class="input-row">
+          <label>accept q</label>
+          <input type="number" id="mAccept" value="4" min="0" style="width:55px;"/>
+        </div>
+        <div class="input-row">
+          <label>reject q</label>
+          <input type="number" id="mReject" value="5" min="0" style="width:55px;"/>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- transition editor rows -->
+        <div class="panel-label">Transitions <button class="toggle-btn" onclick="addTransRow()">+ add row</button></div>
+        <div id="transEditor">
+          <!-- rows injected by JS -->
+        </div>
+        <div class="trans-header-row">
+          <span>cs</span><span>read</span><span>ns</span><span>write</span><span>move</span><span></span>
+        </div>
+
+        <button class="apply-btn" onclick="applyManual()">Apply &amp; Load</button>
+      </div>
+
+    </div><!-- /LEFT PANEL -->
+
+    <!-- RIGHT PANEL: transition table -->
+    <div class="panel">
+      <div class="panel-label">Transition table</div>
+      <div class="trans-scroll">
+        <table class="trans-table" id="transTable">
+          <thead>
+            <tr><th>#</th><th>cs</th><th>read</th><th>ns</th><th>write</th><th>move</th></tr>
+          </thead>
+          <tbody id="transTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /panel-row -->
+
+  <!-- TAPE -->
+  <div class="tape-panel">
+    <div class="panel-label">
+      Tape &nbsp;—&nbsp; state:&nbsp;<span id="stateLabel" style="color:#00ff88;">q0</span>
+      <span class="step-ctr">step <span id="stepNum">0</span></span>
+    </div>
+    <div class="tape-wrap" id="tapeWrap">
+      <div class="tape-track" id="tapeTrack"></div>
+      <div class="head-track" id="headTrack"></div>
+    </div>
+  </div>
+
+  <!-- RESULT BANNER -->
+  <div id="resultBanner" class="result-banner"></div>
+
+  <!-- STATE CHIPS -->
+  <div class="status-row">
+    <div class="state-chip" id="chipStart">start: q0</div>
+    <div class="state-chip" id="chipAccept">accept: q?</div>
+    <div class="state-chip" id="chipReject">reject: q?</div>
+  </div>
+
+  <!-- LOG -->
+  <div class="log-panel" id="logPanel">
+    <div class="log-entry info">Select a preset or load a manual TM, then press Run.</div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <button class="btn btn-primary" id="btnRun"   onclick="runAuto()">Run</button>
+    <button class="btn btn-ghost"   id="btnStep"  onclick="stepOnce()">Step</button>
+    <button class="btn btn-ghost"   id="btnPause" onclick="pauseSim()" disabled>Pause</button>
+    <button class="btn btn-danger"               onclick="resetSim()">Reset</button>
+    <div class="speed-wrap">
+      <span class="speed-label">speed</span>
+      <input type="range" id="speedSlider" min="50" max="950" value="600"
+             step="50" oninput="updateSpeed(this.value)"/>
+      <span class="speed-label" id="speedLabel">fast</span>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script src="tm.js"></script>
+</body>
+</html>
