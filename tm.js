@@ -112,39 +112,7 @@ const PRESETS = [
       {cs:0, read:'1', ns:0, write:'0', move:'R'},
       {cs:0, read:'_', ns:1, write:'_', move:'R'},
     ]
-  },
-
-  /* 4 — ww Acceptor */
-  {
-    name: "ww Acceptor",
-    blank: '_', start: 0, accept: 8, reject: 9,
-    example: "abab",
-    transitions: [
-      {cs:0, read:'a', ns:1, write:'A', move:'R'},
-      {cs:0, read:'b', ns:2, write:'B', move:'R'},
-      {cs:0, read:'_', ns:8, write:'_', move:'R'},
-      {cs:1, read:'a', ns:1, write:'a', move:'R'},
-      {cs:1, read:'b', ns:1, write:'b', move:'R'},
-      {cs:1, read:'_', ns:3, write:'_', move:'L'},
-      {cs:2, read:'a', ns:2, write:'a', move:'R'},
-      {cs:2, read:'b', ns:2, write:'b', move:'R'},
-      {cs:2, read:'_', ns:4, write:'_', move:'L'},
-      {cs:3, read:'a', ns:5, write:'_', move:'L'},
-      {cs:4, read:'b', ns:5, write:'_', move:'L'},
-      {cs:5, read:'a', ns:5, write:'a', move:'L'},
-      {cs:5, read:'b', ns:5, write:'b', move:'L'},
-      {cs:5, read:'A', ns:0, write:'A', move:'R'},
-      {cs:5, read:'B', ns:0, write:'B', move:'R'},
-      {cs:0, read:'A', ns:6, write:'A', move:'R'},
-      {cs:0, read:'B', ns:7, write:'B', move:'R'},
-      {cs:6, read:'A', ns:6, write:'A', move:'R'},
-      {cs:6, read:'B', ns:6, write:'B', move:'R'},
-      {cs:6, read:'_', ns:8, write:'_', move:'R'},
-      {cs:7, read:'A', ns:7, write:'A', move:'R'},
-      {cs:7, read:'_', ns:8, write:'_', move:'R'},
-    ]
   }
-
 ];
 
 /* ================================================================

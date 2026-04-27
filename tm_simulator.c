@@ -170,39 +170,6 @@ void loadPreset(int choice)
         runMachine(0, 1, 2, n, '_', input);
         break;
 
-    /* ── 5. ww Acceptor ─────────────────────────────────────── */
-    case 5:
-        printf("\n=== Preset 5: ww Acceptor ===\n");
-        printf("Accepts strings of the form ww over {a,b} (e.g. abab, aabb is NOT ww)\n");
-
-        trans[n++] = (Transition){0,'a',1,'A','R'};
-        trans[n++] = (Transition){0,'b',2,'B','R'};
-        trans[n++] = (Transition){0,'_',8,'_','R'};
-        trans[n++] = (Transition){1,'a',1,'a','R'};
-        trans[n++] = (Transition){1,'b',1,'b','R'};
-        trans[n++] = (Transition){1,'_',3,'_','L'};
-        trans[n++] = (Transition){2,'a',2,'a','R'};
-        trans[n++] = (Transition){2,'b',2,'b','R'};
-        trans[n++] = (Transition){2,'_',4,'_','L'};
-        trans[n++] = (Transition){3,'a',5,'_','L'};
-        trans[n++] = (Transition){4,'b',5,'_','L'};
-        trans[n++] = (Transition){5,'a',5,'a','L'};
-        trans[n++] = (Transition){5,'b',5,'b','L'};
-        trans[n++] = (Transition){5,'A',0,'A','R'};
-        trans[n++] = (Transition){5,'B',0,'B','R'};
-        trans[n++] = (Transition){0,'A',6,'A','R'};
-        trans[n++] = (Transition){0,'B',7,'B','R'};
-        trans[n++] = (Transition){6,'A',6,'A','R'};
-        trans[n++] = (Transition){6,'B',6,'B','R'};
-        trans[n++] = (Transition){6,'_',8,'_','R'};
-        trans[n++] = (Transition){7,'A',7,'A','R'};
-        trans[n++] = (Transition){7,'_',8,'_','R'};
-
-        printf("Enter input string (default: abab): ");
-        scanf("%s", input);
-        runMachine(0, 8, 9, n, '_', input);
-        break;
-
     default:
         printf("Invalid choice.\n");
     }
@@ -244,17 +211,16 @@ int main()
     printf("========================================\n");
     printf("       TURING MACHINE SIMULATOR         \n");
     printf("========================================\n");
-    printf(" 1. a^n b^n c^n Acceptor\n");
+    printf(" 1. a^n b^n c^n Acceptor\n"); 
     printf(" 2. Palindrome Checker {a,b}\n");
     printf(" 3. Unary Adder\n");
     printf(" 4. Binary Flip\n");
-    printf(" 5. ww Acceptor\n");
-    printf(" 6. Manual Entry\n");
+    printf(" 5. Manual Entry\n");
     printf("========================================\n");
     printf("Choose option: ");
     scanf("%d", &choice);
 
-    if (choice == 6)
+    if (choice == 5)
         manualMode();
     else
         loadPreset(choice);
